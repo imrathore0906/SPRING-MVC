@@ -1,0 +1,82 @@
+package beans;
+
+import java.util.List;
+
+public class Employee {
+private int empcode;
+private String empname;
+private int salary;
+private List<String> skills;
+
+public List<String> getSkills() {
+	return skills;
+}
+public void setSkills(List<String> skills) {
+	this.skills = skills;
+}
+
+
+public int getEmpcode() {
+	return empcode;
+}
+public void setEmpcode(int empcode) {
+	this.empcode = empcode;
+}
+public String getEmpname() {
+	return empname;
+}
+public void setEmpname(String empname) {
+	this.empname = empname;
+}
+public int getSalary() {
+	return salary;
+}
+public void setSalary(int salary) {
+	this.salary = salary;
+}
+
+
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+package beans;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class EmployeeApp {
+
+	public static void main(String[] args) {
+	   ApplicationContext ctx = new ClassPathXmlApplicationContext("beans/SpringCore.xml");
+	   Employee e = (Employee) ctx.getBean("employee");
+	   /*e.setEmpcode(1201);
+	   e.setEmpname("Shravya");
+	   e.setSalary(25000);*/
+	   System.out.println(e.getEmpcode()+" "+e.getEmpname()+" "+e.getSalary()+" "+e.getSkills());
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+<bean id="employee" class="beans.Employee" scope="prototype">
+		    <property name="empcode" value="120"></property>
+		    <property name="empname" value="Deloitte"></property>
+		    <property name="salary" value="12345"></property>
+		    <property name="skills">
+		         <list>
+		                <value>java</value>
+		                <value>oracle</value>
+		                <value>spring</value>
+		         </list>
+		    </property>		  
+		</bean>   
+</beans>
+---------------------------------------------------------------------------------------------------------------------------------------

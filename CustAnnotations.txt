@@ -1,0 +1,92 @@
+package annotations;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component(value="cust")
+public class Customer {
+@Value("123")
+private int code;
+@Value("Shravya")
+private String name;
+@Autowired
+private Salary salary;
+
+
+
+public Salary getSalary() {
+	return salary;
+}
+public void setSalary(Salary salary) {
+	this.salary = salary;
+}
+public int getCode() {
+	return code;
+}
+public void setCode(int code) {
+	this.code = code;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+package annotations;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class CustomerAppln {
+public static void main(String[] args){
+ApplicationContext ctx = new ClassPathXmlApplicationContext("annotations/SpringAnnot.xml");
+Customer c = (Customer) ctx.getBean("cust");
+
+System.out.println(c.getCode()+" "+c.getName()+" "+c.getSalary().getBasic()+" "+c.getSalary().getHra());
+
+}
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------
+package annotations;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Salary {
+@Value("2000")
+private double basic;
+@Value("5000")
+private double hra;
+public double getBasic() {
+	return basic;
+}
+public void setBasic(double basic) {
+	this.basic = basic;
+}
+public double getHra() {
+	return hra;
+}
+public void setHra(double hra) {
+	this.hra = hra;
+}
+
+
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<context:component-scan base-package="annotations"></context:component-scan>
+</beans>
